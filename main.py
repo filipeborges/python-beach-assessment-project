@@ -4,7 +4,7 @@ Email: elaine.bo@hotmail.com, filipebkc2209@gmail.com
 """
 
 from userInput import *
-from categoryNormalized import *
+from result import *
 
 userInputDictionary = {  # userInputDictionary
     "Recreational": {  # domainCategories
@@ -85,7 +85,7 @@ userInputDictionary = {  # userInputDictionary
         },
         "Management Actions": {
             "Restrictions & Regulations": 0,
-            "Protected areas (%)": 0,
+            "Protected areas": 0,
             "Environmental Educational": 0,
         },
         "Habitat": {
@@ -239,8 +239,25 @@ domainWeight = {
         }
     }
 
+domainGrade = {
+    "Recreational": 0,
+    "Protection": 0,
+    "Conservation": 0,
+    "Sanitary": 0
+}
+
 captureUserInput(userInputDictionary)
-print(str(userInputDictionary))
+# print(str(userInputDictionary))
 
 calculateCategoriesNormalizedResult(userInputDictionary, categoriesNormalizedDictionary)
-print(str(categoriesNormalizedDictionary))
+# print(str(categoriesNormalizedDictionary))
+
+beachType = captureBeachTypeInputAndReturn()
+
+calculateDomainGrade(domainGrade, beachType, categoryWeight, categoriesNormalizedDictionary)
+
+print('Domain grade: ' + str(domainGrade))
+
+beachIndex = calculateDomainIndexAndReturn(domainGrade, domainWeight, beachType)
+
+print ('Beach index: ' + str(beachIndex))

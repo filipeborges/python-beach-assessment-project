@@ -30,3 +30,23 @@ def captureUserInput(userInputDictionary):
         for category, categoryIndicators in domainCategories.items():
             for indicator, indicatorValue in categoryIndicators.items():
                 __gatherCategoryValueFromUserInput(categoryIndicators, indicator)
+
+# private function - dont need to be accessed on main.py
+def __isBeachTypeValueInvalid(beachType):
+    regexValidator = re.compile('^[1-2]$')
+    return not(bool(regexValidator.match(beachType)))
+
+# private function - dont need to be accessed on main.py
+def __askAndCaptureBeachTypeValue():
+    return input('Specify the type of the beach:\n1- Urban\n2- Natural\n')
+
+def captureBeachTypeInputAndReturn():
+    beachTypeDictionary = {
+        '1': "Urban",
+        '2': "Natural"
+    }
+    beachType = __askAndCaptureBeachTypeValue()
+    while __isBeachTypeValueInvalid(beachType):
+        print('Invalid beach type.\n')
+        beachType = __askAndCaptureBeachTypeValue()
+    return beachTypeDictionary[beachType]
