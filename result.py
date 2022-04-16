@@ -3,7 +3,7 @@ Author: Elaine Baroni, Filipe Borges
 Email: elaine.bo@hotmail.com, filipebkc2209@gmail.com
 """
 
-# private function - dont need to be accessed on main.py
+# ======= private functions - dont need to be accessed on main.py ============
 def __calculateSingleCategoryNormalizedResult(categoryIndicators):
     categoryIndicatorsSum = 0
     numberOfIndicators = len(categoryIndicators)
@@ -13,13 +13,12 @@ def __calculateSingleCategoryNormalizedResult(categoryIndicators):
     categoryNormalizedResult = categoryIndicatorsSum / (numberOfIndicators * 5)
     return categoryNormalizedResult
 
-# public function - accessed on main.py
 def calculateCategoriesNormalizedResult(userInputDictionary, categoriesNormalizedResult):
     for domain, domainCategories in userInputDictionary.items():
         for category, categoryIndicators in domainCategories.items():
             categoriesNormalizedResult[domain][category] = __calculateSingleCategoryNormalizedResult(categoryIndicators)
 
-# public function - accessed on main.py
+# ======= public functions - accessed on main.py ============
 def calculateDomainGrade(domainGrade, beachType, categoryWeight, categoriesNormalizedDictionary):
     selectedDomainCategoryDictionary = categoryWeight[beachType]
     for domain, domainCategoriesWeight in selectedDomainCategoryDictionary.items():
@@ -28,7 +27,6 @@ def calculateDomainGrade(domainGrade, beachType, categoryWeight, categoriesNorma
             domainResult += categoryWeight[beachType][domain][category] * categoriesNormalizedDictionary[domain][category]
         domainGrade[domain] = domainResult
 
-# public function - accessed on main.py
 def calculateDomainIndexAndReturn(domainGradeDictionary, domainWeightDictionary, beachType):
     beachIndex = 0
     for domain, domainGradeValue in domainGradeDictionary.items():

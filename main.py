@@ -5,6 +5,8 @@ Email: elaine.bo@hotmail.com, filipebkc2209@gmail.com
 
 from userInput import *
 from result import *
+from file import deleteSavedUserInput, initializeUserInputDictionary
+from signalHandler import initializeSaveUserInputWhenEndProgramCommand
 
 userInputDictionary = {  # userInputDictionary
     "Recreational": {  # domainCategories
@@ -246,8 +248,20 @@ domainGrade = {
     "Sanitary": 0
 }
 
+DEFAULT_MESSAGE = """
+------------------------------------------
+| type [CTRL + C] anytime to end program |
+------------------------------------------
+"""
+
+print(DEFAULT_MESSAGE)
+
+userInputDictionary = initializeUserInputDictionary(userInputDictionary)
+
+initializeSaveUserInputWhenEndProgramCommand(userInputDictionary)
+
 captureUserInput(userInputDictionary)
-# print(str(userInputDictionary))
+#print(str(userInputDictionary))
 
 calculateCategoriesNormalizedResult(userInputDictionary, categoriesNormalizedDictionary)
 # print(str(categoriesNormalizedDictionary))
@@ -261,3 +275,5 @@ print('Domain grade: ' + str(domainGrade))
 beachIndex = calculateDomainIndexAndReturn(domainGrade, domainWeight, beachType)
 
 print ('Beach index: ' + str(beachIndex))
+
+deleteSavedUserInput()
