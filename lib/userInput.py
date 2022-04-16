@@ -5,6 +5,12 @@ Email: elaine.bo@hotmail.com, filipebkc2209@gmail.com
 
 import re
 
+END_PROGRAM_MESSAGE = """
+------------------------------------------
+| type [CTRL + C] anytime to end program |
+------------------------------------------
+"""
+
 # ======= private functions - dont need to be accessed on main.py ============
 def __isIndicatorValueInvalid(indicatorValue):
     regexValidator = re.compile('^[1-5]$')
@@ -44,9 +50,18 @@ def captureBeachTypeInputAndReturn():
         beachType = __askAndCaptureBeachTypeValue()
     return beachTypeDictionary[beachType]
 
-def captureUserInput(userInputDictionary):
+def captureCategoriesIndicatorValue(userInputDictionary):
     for domain, domainCategories in userInputDictionary.items():
         for category, categoryIndicators in domainCategories.items():
             for indicator, indicatorValue in categoryIndicators.items():
                 if __isIndicatorValueNotSetted(indicatorValue):
                     __gatherCategoryValueFromUserInput(categoryIndicators, indicator)
+
+def printProgramInstructionUsage():
+    print(END_PROGRAM_MESSAGE)
+
+def captureBeachNameAndReturn(currentBeachName):
+    if len(currentBeachName) == 0:
+        return input('Inform the beach name:\n')
+    else:
+        return currentBeachName

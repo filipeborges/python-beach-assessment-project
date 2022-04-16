@@ -3,10 +3,10 @@ Author: Elaine Baroni, Filipe Borges
 Email: elaine.bo@hotmail.com, filipebkc2209@gmail.com
 """
 
-from userInput import *
-from result import *
-from file import deleteSavedUserInput, initializeUserInputDictionary
-from signalHandler import initializeSaveUserInputWhenEndProgramCommand
+from lib.userInput import *
+from lib.result import *
+from lib.file import deleteSavedUserInput, initializeBeachName, initializeUserInputDictionary, saveFinalResult
+from lib.signalHandler import initializeSaveUserInputWhenEndProgramCommand
 
 userInputDictionary = {  # userInputDictionary
     "Recreational": {  # domainCategories
@@ -248,32 +248,30 @@ domainGrade = {
     "Sanitary": 0
 }
 
-DEFAULT_MESSAGE = """
-------------------------------------------
-| type [CTRL + C] anytime to end program |
-------------------------------------------
-"""
 
-print(DEFAULT_MESSAGE)
+beachName = captureBeachNameAndReturn(initializeBeachName(''))
 
 userInputDictionary = initializeUserInputDictionary(userInputDictionary)
 
-initializeSaveUserInputWhenEndProgramCommand(userInputDictionary)
+printProgramInstructionUsage()
 
-captureUserInput(userInputDictionary)
-#print(str(userInputDictionary))
+initializeSaveUserInputWhenEndProgramCommand(userInputDictionary, beachName)
+
+captureCategoriesIndicatorValue(userInputDictionary)
 
 calculateCategoriesNormalizedResult(userInputDictionary, categoriesNormalizedDictionary)
-# print(str(categoriesNormalizedDictionary))
 
 beachType = captureBeachTypeInputAndReturn()
 
 calculateDomainGrade(domainGrade, beachType, categoryWeight, categoriesNormalizedDictionary)
 
-print('Domain grade: ' + str(domainGrade))
-
 beachIndex = calculateDomainIndexAndReturn(domainGrade, domainWeight, beachType)
 
-print ('Beach index: ' + str(beachIndex))
-
 deleteSavedUserInput()
+
+saveFinalResult(beachName, beachIndex, domainGrade)
+
+"""
+TODO:
+    - Ler arquivo e ordenar por beachIndex
+"""
