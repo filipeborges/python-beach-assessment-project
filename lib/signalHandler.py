@@ -7,11 +7,14 @@ import signal
 import sys
 from lib.file import saveUserInput
 
+# ======= private functions ============
+
 def __beachNameIsNotEmtpy(beachName):
     return len(beachName) > 0
 
-# ======= public functions - accessed on main.py ============
-def initializeSaveUserInputWhenEndProgramCommand(userInputDictionary, beachName):
+# ======= public functions  ============
+
+def initializeEndProgramHandler(userInputDictionary, beachName):
     def handleSigIntSignal(signalNumber, currentStackFrame):
         saveUserInput(userInputDictionary, beachName)
         sys.exit(0)
